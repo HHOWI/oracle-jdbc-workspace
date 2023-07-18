@@ -14,44 +14,44 @@ DROP TABLE CATEGORYTYPE; -- 카테고리(관심사)분류
 
 CREATE TABLE COMMENTS(  -------------------------------------------------------- 댓글
 
-    CM_SEQ NUMBER,                                                     -- 댓글 SEQ 
-    CM_DESC VARCHAR2(1000) NOT NULL,                                   -- 댓글 내용
-    CM_DATE DATE DEFAULT SYSDATE NOT NULL,                             -- 댓글작성시각
-    SECRET_CM CHAR(1) DEFAULT 'N' CHECK(SECRET_COMMENT IN('N','Y')),   -- 비밀댓글(Y/N)
-    CM_URL VARCHAR2(500) NOT NULL,                                     -- 댓글사진, 동영상 URL
-    CM_PARENT_SEQ NUMBER,                                              -- 부모댓글 SEQ
+    COMMENTS_SEQ NUMBER,                                                     -- 댓글 SEQ 
+    COMMENTS_DESC VARCHAR2(1000) NOT NULL,                                   -- 댓글 내용
+    COMMENTS_DATE DATE DEFAULT SYSDATE NOT NULL,                             -- 댓글작성시각
+    SECRET_COMMENTS CHAR(1) DEFAULT 'N' CHECK(SECRET_COMMENTS IN('N','Y')),   -- 비밀댓글(Y/N)
+    COMMENTS_URL VARCHAR2(500) NOT NULL,                                     -- 댓글사진, 동영상 URL
+    COMMENTS_PARENT_SEQ NUMBER,                                              -- 부모댓글 SEQ
     USER_ID VARCHAR2(200),                                             -- 아이디 SEQ
     POST_SEQ NUMBER,                                                   -- 게시글 SEQ
-    MT_SEQ NUMBER                                                      -- 매칭글 SEQ
+    MATCHINGTEXT_POST_SEQ NUMBER                                                      -- 매칭글 SEQ
 );
 
 CREATE TABLE COMMENT_LIKE(----------------------------------------------------- 댓글 좋아요
 
-    CM_LIKE_DATE DATE DEFAULT SYSDATE NOT NULL, -- 댓글좋아요 누른시간
-    CM_LIKE_SEQ NUMBER,                         -- 댓글좋아요 SEQ
-    CM_SEQ NUMBER,                              -- 댓글 SEQ
+    CL_DATE DATE DEFAULT SYSDATE NOT NULL, -- 댓글좋아요 누른시간
+    CL_SEQ NUMBER,                         -- 댓글좋아요 SEQ
+    COMMENTS_SEQ NUMBER,                              -- 댓글 SEQ
     USER_ID VARCHAR2(200)                       -- 아이디
 );
 
 CREATE TABLE CATEGORY(---------------------------------------------------------- 카테고리
 
-    CG_NAME VARCHAR2(200),    -- 카테고리(관심사) 이름
-    CG_SEQ NUMBER,            -- 카테고리(관심사) SEQ
+    CATEGORY_NAME VARCHAR2(200),    -- 카테고리(관심사) 이름
+    CATEGORY_SEQ NUMBER,            -- 카테고리(관심사) SEQ
     USER_ID VARCHAR2(200),    -- 아이디
     CT_SEQ NUMBER             -- 카테고리(관심사)분류 SEQ
 );
 
-CREATE TABLE CATEGORYTYPE(--------------------------------------- 카테고리(관심사)분류
+CREATE TABLE CATEGORY_TYPE(--------------------------------------- 카테고리(관심사)분류
 
     CT_NAME VARCHAR2(200),  -- 카테고리(관심사)분류이름/매칭게시판 이름
     CT_SEQ NUMBER           -- 카테고리(관심사)분류 SEQ
 );
 ------------------------------------------------------------------------------------------------------------------------------------ PRIMARY KEY
 
-ALTER TABLE COMMENTS ADD CONSTRAINT CM_SEQ_PK PRIMARY KEY(CM_SEQ);                   -- 댓글 SEQ
-ALTER TABLE COMMENT_LIKE ADD CONSTRAINT CM_LIKE_SEQ_PK PRIMARY KEY(CM_LIKE_SEQ);     -- 댓글좋아요 SEQ
-ALTER TABLE CATEGORY ADD CONSTRAINT CG_SEQ_PK PRIMARY KEY(CG_SEQ);                   -- 카테고리(관심사) SEQ
-ALTER TABLE CATEGORYTYPE ADD CONSTRAINT CT_SEQ_PK PRIMARY KEY(CT_SEQ);               -- 카테고리(관심사)분류 SEQ
+ALTER TABLE COMMENTS ADD CONSTRAINT COMMENTS_SEQ_PK PRIMARY KEY(COMMENTS_SEQ);                   -- 댓글 SEQ
+ALTER TABLE COMMENT_LIKE ADD CONSTRAINT CL_SEQ_PK PRIMARY KEY(CL_SEQ);     -- 댓글좋아요 SEQ
+ALTER TABLE CATEGORY ADD CONSTRAINT CATEGORY_SEQ_PK PRIMARY KEY(CATEGORY_SEQ);                   -- 카테고리(관심사) SEQ
+ALTER TABLE CATEGORY_TYPE ADD CONSTRAINT CT_SEQ_PK PRIMARY KEY(CT_SEQ);               -- 카테고리(관심사)분류 SEQ
 
 ------------------------------------------------------------------------------------------------------------------------------------- FOREIGN KEY
 
@@ -67,7 +67,7 @@ ALTER TABLE CATEGORYTYPE ADD CONSTRAINT CT_SEQ_PK PRIMARY KEY(CT_SEQ);          
 
 -------------------------------------------------------------------------- 시퀀스 생성
 
---CREATE SEQUENCE SEQ_COMMENTS;             -- 댓글 SEQ
---CREATE SEQUENCE SEQ_COMMENT_LIKE;         -- 댓글 좋아요 SEQ
---CREATE SEQUENCE SEQ_CATEGORY;             -- 카테고리 SEQ
---CREATE SEQUENCE SEQ_CATEGORYTYPE;         -- 카테고리(관심사)분류 SEQ
+CREATE SEQUENCE SEQ_COMMENTS;             -- 댓글 SEQ
+CREATE SEQUENCE SEQ_COMMENT_LIKE;         -- 댓글 좋아요 SEQ
+CREATE SEQUENCE SEQ_CATEGORY;             -- 카테고리 SEQ
+CREATE SEQUENCE SEQ_CATEGORYTYPE;         -- 카테고리(관심사)분류 SEQ
